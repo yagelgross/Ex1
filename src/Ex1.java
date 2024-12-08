@@ -49,7 +49,6 @@ public class Ex1 {
         public static boolean isNumber(String a) {
             boolean ans = true;
             if (a.charAt(a.length()-2) != 'b') {
-                System.out.println("num1= " + a +  "is number: false , value: -1 \n ERR: num1 is in the wrong format! (" + a + ")");
                 return ans = false;
             }
             for (int i = 0; i < a.length()-2; i++) {
@@ -70,9 +69,14 @@ public class Ex1 {
          */
         public static String int2Number(int num, int base) {
             String ans = "";
-            // add your code here
-
-            ////////////////////
+            String ans1 = "";
+            if (base > 16 || base < 2) {
+                ans = ans1;
+                return ans;
+            }
+            else {
+                ans = "" + num;
+            }
             return ans;
         }
 
