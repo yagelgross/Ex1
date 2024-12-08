@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * This class represents a simple solution for Ex1.
  * As defined here: https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit
@@ -21,26 +19,42 @@ public class Ex1 {
          */
         public static int number2Int(String num) {
             int ans = -1;
-            char[] num1 = num.toCharArray();
-            for (int i = 0; i < num.length(); i++) {
-
-                if (num.charAt(i) ) {}
-            }
-
-            ////////////////////
             return ans;
         }
-        public static boolean isNumInBase (String c){
+
+
+        public static boolean isNumInBase (String num, int base) { // an assistance function
             boolean ans = true;
-            for (int i = 0; i < c.length()-2; i++) {
-                char j = c.charAt(c.length() - 1);
-                char k = c.charAt(i);
-                if (j > k) { ans = true; } else {
-                    ans = false;
+            String isNum = "0123456789ABCDEF".substring(0,base); // all the valid numbers according to the base
+
+            for (int i = 0; i < num.length(); i++) { // test all the numbers in the string
+                char j = num.charAt(i); // for char at the (i) location
+                if (isNum.indexOf(j) == -1) { // is the value of char valid?
+                    ans = false; // if not ans = false
                 }
             }
             return ans;
         }
+
+
+        public static boolean isBase(String base) {
+            if (base == null || base.isEmpty()) {
+                return false;
+            }
+            for(int i = 0; i < base.length(); i++) {
+                char c = base.charAt(i);;
+                if (c < '0' || c > '9') {
+                    return false;
+                }
+            }
+            int b = 0;
+            for(int i = 0; i < base.length(); i++) {
+                b = b * 10 + (base.charAt(i) - '0');
+            }
+            return b >= 2 && b <= 16;
+        }
+
+
         /**
          * This static function checks if the given String (g) is in a valid "number" format.
          * @param a a String representing a number
@@ -48,15 +62,20 @@ public class Ex1 {
          */
         public static boolean isNumber(String a) {
             boolean ans = true;
-            if (a.charAt(a.length()-2) != 'b') {
-                return ans = false;
+            if (!a.contains("b")) {
+                ans = false;
             }
-            for (int i = 0; i < a.length()-2; i++) {
-                if (isNumInBase(a.substring(i, i+2))){
-                    ans = true;
-                } else { ans = false; }
+            String[] parts = a.split("b");
+            if (parts.length != 2) {
+                ans = false;
             }
-            return ans;
+            String num = parts[0];
+            String base1 = parts[1];
+            if (!isBase(base1)) {
+                ans = false;
+            }
+            int base = Integer.parseInt(base1);
+            return isNumInBase(num,base);
         }
 
         /**
@@ -68,16 +87,18 @@ public class Ex1 {
          * @return a String representing a number (in base) equals to num, or an empty String (in case of wrong input).
          */
         public static String int2Number(int num, int base) {
-            String ans = "";
-            String ans1 = "";
-            if (base > 16 || base < 2) {
-                ans = ans1;
-                return ans;
+            StringBuilder ans = new StringBuilder();
+            int i = num;
+            while (i > 0) {
+                int j = i % base;
+                if (j < 10) {
+                    ans.append((char) (j + '0'));
+                } else {
+                    ans.append((char) ('A' + (j - 10)));
+                }
+                i = i / base;
             }
-            else {
-                ans = "" + num;
-            }
-            return ans;
+            return ans.reverse().toString();
         }
 
         /**
