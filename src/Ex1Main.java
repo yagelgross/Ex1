@@ -15,10 +15,12 @@ public class Ex1Main {
             System.out.println("Enter a string as number#1 (or \"quit\" to end the program): ");
             num1 = sc.next();
             if (!num1.equals("quit")) {
+
                 System.out.println("num1= " + num1 +  "is number: false , value: -1 \n ERR: num1 is in the wrong format! (" + num1 + ")");
 
             }
         }
         System.out.println("quiting now...");
+        System.exit(1);
     }
 }

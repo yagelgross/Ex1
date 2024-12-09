@@ -1,6 +1,6 @@
 /**
  * This class represents a simple solution for Ex1.
- * As defined here: https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit
+ * As defined here: <a href="https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit">...</a>
  * In this assignment, we will design a number formatting converter and calculator.
  * In general, we will use Strings as numbers over basis of binary till Hexa.
  * [2-16], 10-16 are represented by A,B,..G.
@@ -15,10 +15,29 @@ public class Ex1 {
          * Convert the given number (num) to a decimal representation (as int).
          * It the given number is not in a valid format returns -1.
          * @param num a String representing a number in basis [2,16]
-         * @return
+         * @return string
          */
         public static int number2Int(String num) {
             int ans = -1;
+            if (!isNumber(num)) {
+                return ans;
+            }
+            else {
+                ans = 0;
+                for (int i = 0; i < num.length()-2; i++) {
+                    char ch = num.charAt(i);
+                    int decimal =0;
+                    if (ch >= '0' && ch <= '9') {
+                        decimal = ch - '0';
+                    } else if (ch >= 'A' && ch <= 'F') {
+                        decimal = ch - 'A' + 10;
+                    }
+                    ans += (int) (decimal*Math.pow(10,num.length()-i-1)); // the conversion according to the weight of the number
+                }
+                return ans;
+            }
+
+            
             return ans;
         }
 
@@ -38,12 +57,12 @@ public class Ex1 {
 
 
         public static boolean isBase(String base) {
-            if (base == null || base.isEmpty()) {
+            if (base == null || base.isEmpty()) { // if the base is empty or has no value
                 return false;
             }
             for(int i = 0; i < base.length(); i++) {
-                char c = base.charAt(i);;
-                if (c < '0' || c > '9') {
+                char c = base.charAt(i); // the base character is c
+                if (c < '0' || c > '9') { // if the value of c is not a base value
                     return false;
                 }
             }
@@ -51,7 +70,7 @@ public class Ex1 {
             for(int i = 0; i < base.length(); i++) {
                 b = b * 10 + (base.charAt(i) - '0');
             }
-            return b >= 2 && b <= 16;
+            return b >= 2 && b <= 16; // return true or false according to the value of b
         }
 
 
@@ -61,18 +80,17 @@ public class Ex1 {
          * @return true iff the given String is in a number format
          */
         public static boolean isNumber(String a) {
-            boolean ans = true;
             if (!a.contains("b")) {
-                ans = false;
+                return false;
             }
             String[] parts = a.split("b");
             if (parts.length != 2) {
-                ans = false;
+                return false;
             }
             String num = parts[0];
             String base1 = parts[1];
             if (!isBase(base1)) {
-                ans = false;
+                return false;
             }
             int base = Integer.parseInt(base1);
             return isNumInBase(num,base);
@@ -98,20 +116,24 @@ public class Ex1 {
                 }
                 i = i / base;
             }
-            return ans.reverse().toString();
+            char b = 0;
+            if (base >= 10 && base <= 16) {
+                b += (char) ('A' + (base - 10));
+                ans.append("b" + b);
+            } else { ans.append("b" + base);}
+            ans.reverse().toString();
+            return ans.toString();
         }
 
         /**
          * Checks if the two numbers have the same value.
          * @param n1 first number
          * @param n2 second number
-         * @return true iff the two numbers have the same values.
+         * @return true if the two numbers have the same values.
          */
         public static boolean equals(String n1, String n2) {
             boolean ans = true;
-            // add your code here
 
-            ////////////////////
             return ans;
         }
 
@@ -125,9 +147,7 @@ public class Ex1 {
          */
         public static int maxIndex(String[] arr) {
             int ans = 0;
-            // add your code here
 
-            ////////////////////
             return ans;
         }
 }
