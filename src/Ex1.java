@@ -18,27 +18,28 @@ public class Ex1 {
          * @return string
          */
         public static int number2Int(String num) {
-            int ans = -1;
+            int ans = 0;
             if (!isNumber(num)) {
                 return ans;
             }
             else {
-                ans = 0;
-                for (int i = 0; i < num.length()-2; i++) {
+                for (int i = 0; i < num.length(); i++) {
                     char ch = num.charAt(i);
-                    int decimal =0;
-                    if (ch >= '0' && ch <= '9') {
-                        decimal = ch - '0';
-                    } else if (ch >= 'A' && ch <= 'F') {
-                        decimal = ch - 'A' + 10;
+                    if (ch == 'b'){
+                        String[] parts = num.split("b");
+                        String numPart = parts[0];
+                        String basePart = parts[1];
+                        for (int j = 1; j < numPart.length(); j++) {
+                            char ch2 = numPart.charAt(j);
+                            int sum = Integer.parseInt(String.valueOf(ch2));
+                            int base = Integer.parseInt(String.valueOf(basePart));
+                            sum += (int) (sum * Math.pow(base, numPart.length() - j-1)); // the conversion according to the weight of the number
+                            ans += sum;
+                        }
                     }
-                    ans += (int) (decimal*Math.pow(10,num.length()-i-1)); // the conversion according to the weight of the number
                 }
                 return ans;
             }
-
-            
-            return ans;
         }
 
 
