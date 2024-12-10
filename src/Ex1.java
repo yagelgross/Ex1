@@ -11,6 +11,16 @@
  * You should implement the following static functions:
  */
 public class Ex1 {
+        public static int charToInt(char c) {
+            int ans = 0;
+            char[] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] == c) {
+                    ans = i;
+                }
+            }
+            return ans;
+        }
         /**
          * Convert the given number (num) to a decimal representation (as int).
          * It the given number is not in a valid format returns -1.
@@ -19,8 +29,9 @@ public class Ex1 {
          */
         public static int number2Int(String num) {
             int ans = 0;
+            int base;
             if (!isNumber(num)) {
-                return ans;
+                return -1;
             }
             else {
                 for (int i = 0; i < num.length(); i++) {
@@ -29,13 +40,20 @@ public class Ex1 {
                         String[] parts = num.split("b");
                         String numPart = parts[0];
                         String basePart = parts[1];
+                        char[] basis = basePart.toCharArray();
+                        if(Character.isDigit(basis[0])){
+                            base = Integer.parseInt(basePart);
+                        } else {
+                            base = charToInt(basis[0]);
+                        }
                         for (int j = 1; j < numPart.length(); j++) {
                             char ch2 = numPart.charAt(j);
                             int sum = Integer.parseInt(String.valueOf(ch2));
-                            int base = Integer.parseInt(String.valueOf(basePart));
                             sum += (int) (sum * Math.pow(base, numPart.length() - j-1)); // the conversion according to the weight of the number
                             ans += sum;
                         }
+                    } else {
+                        ans = Integer.parseInt(String.valueOf(ch));
                     }
                 }
                 return ans;
@@ -81,8 +99,15 @@ public class Ex1 {
          * @return true iff the given String is in a number format
          */
         public static boolean isNumber(String a) {
-            if (!a.contains("b")) {
-                return false;
+            for (int i = 0; i < a.length(); i++) {
+                char c = a.charAt(i);
+                if (!(c == 'b')){
+                    if (c < '0' || c > '9' || !Character.isDigit(c)) {
+                        return false;
+                    } else if (c >= '0' && c <= '9') {
+                        return true;
+                    }
+                }
             }
             String[] parts = a.split("b");
             if (parts.length != 2) {
