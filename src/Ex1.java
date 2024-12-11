@@ -11,18 +11,18 @@
  * You should implement the following static functions:
  */
 public class Ex1 {
-    public static char intToChar(int num) {
+    public static char intToChar(int num) { // A function to convert a given int to char according to the given value
         char ch, newCh;
         if (num >= 0 && num <= 9) {
-            newCh = (char) ('0' + num);
+            newCh = (char) ('0' + num); // If the integer is a single digit, it remains a digit, but the memory type becomes char
         } else {
-            newCh = (char) ('A' + (num - 10));
+            newCh = (char) ('A' + (num - 10)); // If the integer is larger than 10, convert it to a char A =10,...,G=16
         }
         ch = newCh;
         return ch;
     }
 
-    public static int charToInt(char c) {
+    public static int charToInt(char c) { // A function to convert a given char to int according to the given value
         if (c >= '0' && c <= '9') {
             return c - '0';
         }
