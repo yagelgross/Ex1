@@ -12,7 +12,7 @@
  */
 public class Ex1 {
     public static char intToChar(int num) {
-        char ch = '0', newCh;
+        char ch, newCh;
         if (num >= 0 && num <= 9) {
             newCh = (char) ('0' + num);
         } else {
@@ -47,7 +47,6 @@ public class Ex1 {
         String numPart = num;
         if (num.contains("b")) {
             String[] parts = num.split("b");
-            int basis = charToInt(parts[1].charAt(0));
             if (parts.length != 2) {
                 return -1;
             }
@@ -156,6 +155,9 @@ public class Ex1 {
         }
         StringBuilder result = new StringBuilder();
         int currentNum = num;
+        if (currentNum==0){
+            result.append(0);
+        }
         while (currentNum > 0) {
             int remainder = currentNum % base;
             if (remainder < 10) {

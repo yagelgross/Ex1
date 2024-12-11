@@ -42,13 +42,13 @@ public class Ex1Main {
                         "Enter a base for output: (a number [2,16])");
             }
             base = sc.next();
-            int basis;
-            if (Ex1.isBase(base)) {
-                if (base.length() > 1) {
-                    basis = Integer.parseInt(base);
-                } else {
-                    basis = Ex1.charToInt(base.charAt(0));
-                }
+            int basis = 0;
+            if (base.length() > 1) {
+                basis = Integer.parseInt(base);
+            }
+            char baseCh = Ex1.intToChar(basis);
+            if (Ex1.isBase(String.valueOf(baseCh))) {
+                basis = Ex1.charToInt(baseCh);
                 int sum = Ex1.number2Int(num2) + Ex1.number2Int(num1);
                 int multi = Ex1.number2Int(num1) * Ex1.number2Int(num2);
                 String Sum = Ex1.int2Number(sum, basis);
