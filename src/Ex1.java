@@ -18,8 +18,33 @@ public class Ex1 {
         if (c >= 'A' && c <= 'G') {
             return c - 'A' + 10;
         }
+        if (c >= 'a' && c <= 'f') {
+            return c - 'a' + 10;
+        }
         return -1;
     }
+
+    public static int toInt(String str) {
+        int result = 0;
+        for (char c : str.toCharArray()) {
+            result = result * 10 + (c - '0'); // המרה ידנית למספר שלם
+        }
+        return result;
+    }
+
+    public static boolean isValidInt(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     /**
      * Convert the given number (num) to a decimal representation (as int).
      * It the given number is not in a valid format returns -1.
@@ -27,35 +52,34 @@ public class Ex1 {
      * @return string
      */
     public static int number2Int(String num) {
-        if (!isNumber(num)) {
-            return -1;  // Return -1 if it's not a valid number
+        int base = 10;
+        String numPart = num;
+        if (num.contains("b")) {
+            String[] parts = num.split("b");
+            int basis = charToInt(parts[1].charAt(0));
+            if (parts.length != 2) {
+                return -1;
+            }
+            base = charToInt(parts[1].charAt(0));
+            numPart = parts[0];
         }
-        String[] parts = num.split("b"); // Split the string at 'b' to separate the number part and the base part
-        if (parts.length != 2) { // If there aren't exactly two parts, the format is wrong
+        if (base < 2 || base > 16) {
             return -1;
         }
-        String numPart = parts[0];
-        String basePart = parts[1];
-        int base = Integer.parseInt(basePart); // Convert the value of the base to int
-
-         if (base < 2 || base > 16) { // If the base is not between 2 and 16, it's invalid
-             return -1;
-         }
-         int result = 0;
-         for (int i = 0; i < numPart.length(); i++) {
-             char c = numPart.charAt(i);
-             int value = charToInt(c);     // Convert the specified character to its corresponding integer value
-
-             if (value == -1 || value >= base) { // If the value is invalid or exceeds the allowed range for the base, return -1
-                 return -1;
-             }
-             result = result * base + value; // Update the result by multiplying the current result by the base and adding the current value
-         }
-         return result;  // Return the final decimal value
+        int result = 0;
+        for (int i = 0; i < numPart.length(); i++) {
+            char c = numPart.charAt(i);
+            int value = charToInt(c);
+            if (value == -1 || value >= base) {
+                return -1;
+            }
+            result = result * base + value;
+        }
+        return result;
     }
 
     public static boolean isNumInBase(String num, int base) {
-        String validChars = "0123456789ABCDEF".substring(0, base);  // Get all valid characters for the base
+        String validChars = "0123456789ABCDEFG".substring(0, base);  // Get all valid characters for the base
         for (int i = 0; i < num.length(); i++) {
             char c = num.charAt(i);
             if (validChars.indexOf(c) == -1) {
@@ -71,7 +95,8 @@ public class Ex1 {
             return false;
         }
         try {
-            int b = Integer.parseInt(base);
+
+            int b = charToInt(base.charAt(0));
             return b >= 2 && b <= 16;
         } catch (NumberFormatException e) {
             return false;  // If base is not a valid number
@@ -112,11 +137,13 @@ public class Ex1 {
 
             // Validate the base: it must be a valid integer between 2 and 16
             if (!isBase(basePart)) {
+                System.out.println("7878");
+
                 return false;
             }
 
             // Now validate the number part: it must be a valid number in the specified base
-            int base = Integer.parseInt(basePart);
+            int base = charToInt(basePart.charAt(0));
             return isNumInBase(numPart, base);  // Check if the number part is valid in the given base
         }
     }
@@ -176,17 +203,14 @@ public class Ex1 {
      *
      */
     public static int maxIndex(String[] arr) {
-        int maxIndex = -1;
-        int maxValue = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != null) {
-                int value = number2Int(arr[i]);
-                if (value != -1 && value > maxValue) {
-                    maxValue = value;
-                    maxIndex = i;
-                }
+        int max = -1;
+        for (int i = 0; i < arr.length-1; i++) {
+            int j = number2Int(arr[i]);
+            int a = number2Int(arr[i+1]);
+            if (j>=a){
+                max = j;
             }
         }
-        return maxIndex;
+        return max;
     }
 }
