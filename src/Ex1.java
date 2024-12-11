@@ -11,6 +11,17 @@
  * You should implement the following static functions:
  */
 public class Ex1 {
+    public static char intToChar(int num) {
+        char ch = '0', newCh;
+        if (num >= 0 && num <= 9) {
+            newCh = (char) ('0' + num);
+        } else {
+            newCh = (char) ('A' + (num - 10));
+        }
+        ch = newCh;
+        return ch;
+    }
+
     public static int charToInt(char c) {
         if (c >= '0' && c <= '9') {
             return c - '0';
@@ -22,26 +33,6 @@ public class Ex1 {
             return c - 'a' + 10;
         }
         return -1;
-    }
-
-    public static int toInt(String str) {
-        int result = 0;
-        for (char c : str.toCharArray()) {
-            result = result * 10 + (c - '0'); // המרה ידנית למספר שלם
-        }
-        return result;
-    }
-
-    public static boolean isValidInt(String str) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        }
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
     }
 
 
@@ -110,15 +101,21 @@ public class Ex1 {
      * @return true iff the given String is in a number format
      */
     public static boolean isNumber(String a) {
-        // Check if the string contains 'b' to determine if it's a base-specific number
-        if (a == null || a.isEmpty()) {
+
+        if (a == null || a.isEmpty()) { // Check if the string contains 'b' to determine if it's a base-specific number
             return false;
         }
+        for (int i = 0; i < a.length(); i++) {
+            char c = a.charAt(i);
+            if (c == ' ') {
+                return false;
+        }
 
-        // If there is no 'b', it's a base 10 number
-        if (!a.contains("b")) {
-            // Check if the string consists only of digits
-            for (int i = 0; i < a.length(); i++) {
+        }
+
+        if (!a.contains("b")) {  // If there is no 'b', it's a base 10 number
+
+            for (int i = 0; i < a.length(); i++) { // Check if the string consists only of digits
                 char c = a.charAt(i);
                 if (c < '0' || c > '9') {
                     return false;  // Not a valid number if it contains non-digit characters
@@ -126,8 +123,8 @@ public class Ex1 {
             }
             return true;  // Valid decimal number
         } else {
-            // Split the string by 'b' into number part and base part
-            String[] parts = a.split("b");
+
+            String[] parts = a.split("b");  // Split the string by 'b' into number part and base part
             if (parts.length != 2) {
                 return false;  // Invalid format if there is more than one 'b'
             }
@@ -135,10 +132,8 @@ public class Ex1 {
             String numPart = parts[0];  // Number part
             String basePart = parts[1]; // Base part
 
-            // Validate the base: it must be a valid integer between 2 and 16
-            if (!isBase(basePart)) {
+            if (!isBase(basePart)) {  // Validate the base: it must be a valid integer between 2 and 16
                 System.out.println("7878");
-
                 return false;
             }
 
@@ -161,7 +156,6 @@ public class Ex1 {
 
 
     public static String int2Number(int num, int base) {
-        // אם המספר שלילי או הבסיס לא תקני
         if (num < 0 || base < 2 || base > 16) {
             return "";
         }
@@ -172,12 +166,15 @@ public class Ex1 {
             if (remainder < 10) {
                 result.append((char) ('0' + remainder));
             } else {
+
                 result.append((char) ('A' + (remainder - 10)));
+
             }
             currentNum = currentNum / base;
         }
+        char baseChar = intToChar(base);
         result.reverse();
-        return result.append("b").append(base).toString();
+        return result.append("b").append(baseChar).toString();
     }
 
 
@@ -203,12 +200,12 @@ public class Ex1 {
      *
      */
     public static int maxIndex(String[] arr) {
-        int max = -1;
-        for (int i = 0; i < arr.length-1; i++) {
-            int j = number2Int(arr[i]);
-            int a = number2Int(arr[i+1]);
-            if (j>=a){
-                max = j;
+        int max = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (isNumber(arr[i])) {
+                if (number2Int(arr[i]) > number2Int(arr[max])) {
+                    max = i;
+                }
             }
         }
         return max;
