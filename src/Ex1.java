@@ -29,9 +29,6 @@ public class Ex1 {
         if (c >= 'A' && c <= 'G') {
             return c - 'A' + 10;
         }
-        if (c >= 'a' && c <= 'f') {
-            return c - 'a' + 10;
-        }
         return -1;
     }
 
