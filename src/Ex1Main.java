@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Ex1Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        sc.useDelimiter("\\n");
         String num1, num2, base;
         System.out.println();
         System.out.println("Ex1 class solution:");
@@ -18,10 +19,12 @@ public class Ex1Main {
 
         } else {
             while (!Ex1.isNumber(num1)) {
-                System.out.println("num1= " + num1 +" is number: false , value: -1\n" +
+                System.out.println("num1= " + num1 + " is number: false , value: -1\n" +
                         "ERR: num1 is in the wrong format! (" + num1 + ")");
+                System.out.print("Please enter a number: ");
                 num1 = sc.next();
             }
+
             System.out.println("num1= " + num1 + " is number: true , value: " + Ex1.number2Int(num1) + "\n" +
                     "Enter a string as number#2 (or \"quit\" to end the program): \n");
             num2 = sc.next();
@@ -30,8 +33,8 @@ public class Ex1Main {
                 System.exit(0);
             } else {
                 while (!Ex1.isNumber(num2)) {
-                    System.out.println("num2= " + num2 +" is number: false , value: -1\n" +
-                            "ERR: num1 is in the wrong format! (" + num2 + ")");
+                    System.out.println("num2= " + num2 + " is number: false , value: -1\n" +
+                            "ERR: num2 is in the wrong format! (" + num2 + ")");
                     num2 = sc.next();
                 }
 
@@ -40,9 +43,9 @@ public class Ex1Main {
             }
             base = sc.next();
             int basis;
-            if(Ex1.isBase(base)) {
-                if (base.length()>1){
-                    basis = Integer.parseInt(base);;
+            if (Ex1.isBase(base)) {
+                if (base.length() > 1) {
+                    basis = Integer.parseInt(base);
                 } else {
                     basis = Ex1.charToInt(base.charAt(0));
                 }
@@ -58,4 +61,5 @@ public class Ex1Main {
         }
     }
 }
+
 

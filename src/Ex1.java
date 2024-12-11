@@ -102,17 +102,9 @@ public class Ex1 {
      */
     public static boolean isNumber(String a) {
 
-        if (a == null || a.isEmpty()) { // Check if the string contains 'b' to determine if it's a base-specific number
+        if (a == null || a.isEmpty() || a.contains(" ")) {
             return false;
         }
-        for (int i = 0; i < a.length(); i++) {
-            char c = a.charAt(i);
-            if (c == ' ') {
-                return false;
-        }
-
-        }
-
         if (!a.contains("b")) {  // If there is no 'b', it's a base 10 number
 
             for (int i = 0; i < a.length(); i++) { // Check if the string consists only of digits
@@ -131,6 +123,9 @@ public class Ex1 {
 
             String numPart = parts[0];  // Number part
             String basePart = parts[1]; // Base part
+            if (numPart.isEmpty() || basePart.isEmpty()) {
+                return false;
+            }
 
             if (!isBase(basePart)) {  // Validate the base: it must be a valid integer between 2 and 16
                 System.out.println("7878");
