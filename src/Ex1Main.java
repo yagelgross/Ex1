@@ -8,12 +8,11 @@ import java.util.Scanner;
 public class Ex1Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        sc.useDelimiter("\\n");
-        String num1, num2, base;
+        String num1, num2;
         System.out.println();
         System.out.println("Ex1 class solution:");
         System.out.println("Enter a string as number#1 (or \"quit\" to end the program): ");
-        num1 = sc.next();
+        num1 = sc.nextLine();
         if (num1.equals("quit")) {
             System.out.println("quiting now...");
 
@@ -22,12 +21,12 @@ public class Ex1Main {
                 System.out.println("num1= " + num1 + " is number: false , value: -1\n" +
                         "ERR: num1 is in the wrong format! (" + num1 + ")");
                 System.out.print("Please enter a number: ");
-                num1 = sc.next();
+                num1 = sc.nextLine();
             }
 
             System.out.println("num1= " + num1 + " is number: true , value: " + Ex1.number2Int(num1) + "\n" +
                     "Enter a string as number#2 (or \"quit\" to end the program): \n");
-            num2 = sc.next();
+            num2 = sc.nextLine();
             if (num2.equals("quit")) {
                 System.out.println("quiting now...");
                 System.exit(0);
@@ -35,29 +34,36 @@ public class Ex1Main {
                 while (!Ex1.isNumber(num2)) {
                     System.out.println("num2= " + num2 + " is number: false , value: -1\n" +
                             "ERR: num2 is in the wrong format! (" + num2 + ")");
-                    num2 = sc.next();
+                    System.out.print("Please enter a number: ");
+                    num2 = sc.nextLine();
                 }
 
                 System.out.println("num2= " + num2 + " is number: true , value: " + Ex1.number2Int(num2) + "\n" +
-                        "Enter a base for output: (a number [2,16])");
+                        "Please enter a base for output: (a number [2,16])");
             }
-            base = sc.next();
-            int basis = 0;
-            if (base.length() > 1) {
-                basis = Integer.parseInt(base);
+            int base = 0;
+            while (base < 2 || base > 16) {
+                System.out.print("Enter a base (2 to 16): ");
+                if (sc.hasNextInt()) {
+                    base = sc.nextInt();
+                    if (base < 2 || base > 16) {
+                        System.out.println("The base you've entered is incorrect.");
+                        System.out.println("Please enter a correct base for output: (a number between 2 and 16).");
+                    }
+                } else {
+                    System.out.println("The input you've entered is incorrect, you need to enter an integer between 2 and 16.");
+                    System.out.println("Please enter a correct base for output: (a number between 2 and 16).");
+                    sc.next();
+                }
             }
-            char baseCh = Ex1.intToChar(basis);
-            if (Ex1.isBase(String.valueOf(baseCh))) {
-                basis = Ex1.charToInt(baseCh);
-                int sum = Ex1.number2Int(num2) + Ex1.number2Int(num1);
-                int multi = Ex1.number2Int(num1) * Ex1.number2Int(num2);
-                String Sum = Ex1.int2Number(sum, basis);
-                String Multi = Ex1.int2Number(multi, basis);
-                String[] max = {num1, num2, Sum, Multi};
-                System.out.println(num1 + " + " + num2 + " = " + Sum);
-                System.out.println(num1 + " * " + num2 + " = " + Multi);
-                System.out.println("Max number over [" + num1 + "," + num2 + "," + Sum + "," + Multi + "] is: " + max[(Ex1.maxIndex(max))]);
-            }
+            int sum = Ex1.number2Int(num2) + Ex1.number2Int(num1);
+            int multi = Ex1.number2Int(num1) * Ex1.number2Int(num2);
+            String Sum = Ex1.int2Number(sum, base);
+            String Multi = Ex1.int2Number(multi, base);
+            String[] max = {num1, num2, Sum, Multi};
+            System.out.println(num1 + " + " + num2 + " = " + Sum);
+            System.out.println(num1 + " * " + num2 + " = " + Multi);
+            System.out.println("Max number over [" + num1 + "," + num2 + "," + Sum + "," + Multi + "] is: " + max[(Ex1.maxIndex(max))]);
         }
     }
 }
