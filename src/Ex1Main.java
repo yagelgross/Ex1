@@ -10,10 +10,10 @@ public class Ex1Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String num1 = "", num2 = "";
-        boolean validInput = false;
+        boolean valid = false;
         System.out.println("Ex1 class solution:");
 
-        while (!validInput) {
+        while (!valid) {
 
             System.out.println("Enter a string as number#1 (or \"quit\" to end the program): ");
             num1 = sc.nextLine();
@@ -44,18 +44,21 @@ public class Ex1Main {
                 System.out.println("Restarting input for both numbers.");
             } else {
                 System.out.println("num2= " + num2 + " is number: true , value: " + Ex1.number2Int(num2));
-                validInput = true;
+                valid = true;
             }
         }
 
-        System.out.println("Please enter a base for output: (a number [2,16])");
+        boolean baseValid = false;
         int base = 0;
-        while (base < 2 || base > 16) {
+        while (!baseValid) {
+            System.out.println("Please enter a base for output: (a number [2,16])");
             if (sc.hasNextInt()) {
                 base = sc.nextInt();
                 if (base < 2 || base > 16) {
-                    System.out.println("The base you've entered is incorrect.");
-                    System.out.println("Please enter a correct base for output: (a number between 2 and 16).\n");
+                    System.out.println("ERR: The base " + base + " is incorrect. Please enter a base between 2 and 16.");
+                    System.out.println("Restarting input for both numbers.\n");
+                } else {
+                    baseValid = true;
                 }
             } else {
                 System.out.println("The input you've entered is incorrect. You need to enter an integer between 2 and 16.");
