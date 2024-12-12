@@ -104,6 +104,9 @@ public class Ex1 {
         if (base == null || base.isEmpty()) {
             return false;
         }
+        if (number2Int(base) == 10) {
+            return true;
+        }
         try { // Convert the base to int, and return only if it's in the correct format
             int b = charToInt(base.charAt(0));
             return b >= 2 && b <= 16;
@@ -218,6 +221,7 @@ public class Ex1 {
      *
      */
     public static int maxIndex(String[] arr) {
+
         int max = 0;
         for (int i = 0; i < arr.length; i++) {
             if (isNumber(arr[i])) {
