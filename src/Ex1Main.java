@@ -53,7 +53,7 @@ public class Ex1Main {
                 } else {
                     System.out.println("The input you've entered is incorrect, you need to enter an integer between 2 and 16.");
                     System.out.println("Please enter a correct base for output: (a number between 2 and 16).");
-                    sc.next();
+                    sc.nextInt();
                 }
             }
             int sum = Ex1.number2Int(num2) + Ex1.number2Int(num1);

@@ -11,6 +11,11 @@
  * You should implement the following static functions:
  */
 public class Ex1 {
+    /**
+     * this static function converts the given integer into a new char type
+     * @param num a given integer
+     * @return a specific specified char according to the value of the integer
+     */
     public static char intToChar(int num) {
         char ch, newCh;
         if (num >= 0 && num <= 9) {
@@ -22,6 +27,11 @@ public class Ex1 {
         return ch;
     }
 
+    /**
+     *  This static function converts a given char to a specific specified value as an integer
+     * @param c a given char
+     * @return an integer containing the value of the char as an integer
+     */
     public static int charToInt(char c) {
         if (c >= '0' && c <= '9') {
             return c - '0';
@@ -45,15 +55,15 @@ public class Ex1 {
     public static int number2Int(String num) {
         int base = 10;
         String numPart = num;
-        if (num.contains("b")) {
-            String[] parts = num.split("b");
+        if (num.contains("b")) { // If the string isn't a decimal number
+            String[] parts = num.split("b"); // Split the string in two, before the 'b' and after the 'b'
             if (parts.length != 2) {
                 return -1;
             }
-            base = charToInt(parts[1].charAt(0));
+            base = charToInt(parts[1].charAt(0)); // convert the base to a numeric value, according to the specified function
             numPart = parts[0];
         }
-        if (base < 2 || base > 16) {
+        if (base < 2 || base > 16) { // if the base is illegal
             return -1;
         }
         int result = 0;
@@ -63,11 +73,17 @@ public class Ex1 {
             if (value == -1 || value >= base) {
                 return -1;
             }
-            result = result * base + value;
+            result = result * base + value; // Execute the known formula for base conversion
         }
         return result;
     }
 
+    /**
+     * This static function checks if the given String (num) is valid according to the given base.
+     * @param num a string representing the number
+     * @param base an integer representing the base
+     * @return true if the given string num id in the correct form for the base integer
+     */
     public static boolean isNumInBase(String num, int base) {
         String validChars = "0123456789ABCDEFG".substring(0, base);  // Get all valid characters for the base
         for (int i = 0; i < num.length(); i++) {
@@ -79,29 +95,32 @@ public class Ex1 {
         return true;
     }
 
-
+    /**
+     *  This static function checks if the given String (base) is in a valid "base" format.
+     * @param base a string representing the base
+     * @return true if the given base is valid
+     */
     public static boolean isBase(String base) {
         if (base == null || base.isEmpty()) {
             return false;
         }
-        try {
-
+        try { // Convert the base to int, and return only if it's in the correct format
             int b = charToInt(base.charAt(0));
             return b >= 2 && b <= 16;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { // In the case of an exception
             return false;  // If base is not a valid number
         }
     }
 
 
     /**
-     * This static function checks if the given String (g) is in a valid "number" format.
+     * This static function checks if the given String (a) is in a valid "number" format.
      * @param a a String representing a number
      * @return true iff the given String is in a number format
      */
     public static boolean isNumber(String a) {
 
-        if (a == null || a.isEmpty() || a.contains(" ")) {
+        if (a == null || a.isEmpty() || a.contains(" ")) { // If there are spaces or if the sting is null or empty
             return false;
         }
         if (!a.contains("b")) {  // If there is no 'b', it's a base 10 number
@@ -117,22 +136,21 @@ public class Ex1 {
 
             String[] parts = a.split("b");  // Split the string by 'b' into number part and base part
             if (parts.length != 2) {
-                return false;  // Invalid format if there is more than one 'b'
+                return false;  // The format is incorrect if there is more than one 'b'
             }
 
             String numPart = parts[0];  // Number part
             String basePart = parts[1]; // Base part
-            if (numPart.isEmpty() || basePart.isEmpty()) {
+            if (numPart.isEmpty() || basePart.isEmpty()) { // If either one of the parts is empty
                 return false;
             }
 
             if (!isBase(basePart)) {  // Validate the base: it must be a valid integer between 2 and 16
-                System.out.println("7878");
                 return false;
             }
 
-            // Now validate the number part: it must be a valid number in the specified base
-            int base = charToInt(basePart.charAt(0));
+
+            int base = charToInt(basePart.charAt(0)); // convert base char to int
             return isNumInBase(numPart, base);  // Check if the number part is valid in the given base
         }
     }
@@ -150,28 +168,28 @@ public class Ex1 {
 
 
     public static String int2Number(int num, int base) {
-        if (num < 0 || base < 2 || base > 16) {
+        if (num < 0 || base < 2 || base > 16) { // if the base value is false
             return "";
         }
-        StringBuilder result = new StringBuilder();
+        StringBuilder result = new StringBuilder(); // Recreate the original string, or make it from scratch
         int currentNum = num;
         if (currentNum==0){
             result.append(0);
         }
         while (currentNum > 0) {
-            int remainder = currentNum % base;
+            int remainder = currentNum % base; // If the base is under 10
             if (remainder < 10) {
                 result.append((char) ('0' + remainder));
-            } else {
+            } else { // If the base is two digits as a decimal number
 
-                result.append((char) ('A' + (remainder - 10)));
+                result.append((char) ('A' + (remainder - 10))); // Convert to a char, and add to the string
 
             }
             currentNum = currentNum / base;
         }
         char baseChar = intToChar(base);
         result.reverse();
-        return result.append("b").append(baseChar).toString();
+        return result.append("b").append(baseChar).toString(); // Reverse the string in order to receive the correct number
     }
 
 
