@@ -16,11 +16,12 @@ public class Ex1Test {
         assertEquals(11, v);
         String s10 = "1011bA";
         v = Ex1.number2Int(s10);
-        s2 = Ex1.int2Number(v,2);
+        s2 = Ex1.int2Number(v, 2);
         int v2 = Ex1.number2Int(s2);
-        assertEquals(v,v2);
-        assertTrue(Ex1.equals(s10,s2));
+        assertEquals(v, v2);
+        assertTrue(Ex1.equals(s10, s2));
     }
+
     @Test
     void isBasisNumberTest() {
         String[] good = {"1", "1b2", "01b2", "123bA", "ABbG", "0bA"};
@@ -34,26 +35,28 @@ public class Ex1Test {
             assertFalse(not_ok);
         }
     }
+
     @Test
     void int2NumberTest() {
         int i = 1234567;
-        String sa, s = Ex1.int2Number(i,16);
+        String sa, s = Ex1.int2Number(i, 16);
         int i2 = Ex1.number2Int(s);
         assertEquals(i, i2);
         int i3 = 0;
-        sa = Ex1.int2Number(i3,2);
+        sa = Ex1.int2Number(i3, 2);
         i3 = Ex1.number2Int(sa);
         int i4 = 2147483647;
-        s = Ex1.int2Number(i4,2);
+        s = Ex1.int2Number(i4, 2);
         assertTrue(i4 != i3);
         int i5 = Ex1.number2Int(s) - i4;
         assertEquals(i3, i5);
-        assert s.length()>31;
-        assertEquals(i4, (Math.pow(2,31)-1));
+        assert s.length() > 31;
+        assertEquals(i4, (Math.pow(2, 31) - 1));
     }
+
     @Test
     void maxIndexTest() {
-        String[] max = new String[]{"1", "91323DFbG", "6", "3FbG", "44", "543FFFbG", "6", "7bC" , "13223232b4"};
+        String[] max = new String[]{"1", "91323DFbG", "6", "3FbG", "44", "543FFFbG", "6", "7bC", "13223232b4"};
         boolean isMax = Ex1.maxIndex(max) == 1;
         assertTrue(isMax);
         if (Ex1.maxIndex(max) != 1) {
@@ -105,8 +108,25 @@ public class Ex1Test {
 
     @Test
     void number2Int() {
-
+        assertEquals(5, Ex1.number2Int("101b2"));
+        assertEquals(2748, Ex1.number2Int("ABCbG"));
+        assertEquals(12345, Ex1.number2Int("12345bA"));
+        assertEquals(7, Ex1.number2Int("7b8"));
+        assertEquals(0, Ex1.number2Int("0b2"));
+        assertEquals(-1, Ex1.number2Int("123b17"));
+        assertEquals(-1, Ex1.number2Int("123b1"));
+        assertEquals(123, Ex1.number2Int("123"));
+        assertEquals(-1, Ex1.number2Int("GbG"));
+        assertEquals(-1, Ex1.number2Int("123b"));
+        assertEquals(-1, Ex1.number2Int("b10"));
+        assertEquals(-1, Ex1.number2Int("123b10b2"));
+        assertEquals(12, Ex1.number2Int("12bA"));
+        assertEquals(-1, Ex1.number2Int(" "));
+        assertEquals(0, Ex1.number2Int("0"));
+        assertEquals(123, Ex1.number2Int("00123bA"));
+        assertEquals(2748, Ex1.number2Int("000ABCbG"));
     }
+
 
     @Test
     void isNumInBase() {
@@ -137,14 +157,14 @@ public class Ex1Test {
              is in a single character, in order to test all possible bases here, I will subtract
              7 from the basis, so that it will return true for all the right bases, and false otherwise.
              */
-            String basis = Ex1.int2Number(i-7, 10);
+            String basis = Ex1.int2Number(i - 7, 10);
             if (Ex1.isNumber(basis)) {
                 assertTrue(Ex1.isBase(basis));
             }
         }
         for (int i = 0; (i <= 1) || (i >= 17); i++) {
-            String basis = Ex1.int2Number(i,10);
-            if (Ex1.isNumber(basis)){
+            String basis = Ex1.int2Number(i, 10);
+            if (Ex1.isNumber(basis)) {
                 assertFalse(Ex1.isBase(basis));
             }
         }
@@ -152,7 +172,7 @@ public class Ex1Test {
 
     @Test
     void isNumber() { // This test is basically the same as the first one
-        String[] good = {"1", "0bG", "1b2", "01b2", "123bA", "FbG", "0",  "ABbG", "0bA"};
+        String[] good = {"1", "0bG", "1b2", "01b2", "123bA", "FbG", "ABbG", "0bA"};
         for (String s : good) {
             boolean ok = Ex1.isNumber(s);
             assertTrue(ok);
@@ -163,19 +183,23 @@ public class Ex1Test {
             assertFalse(not_ok);
         }
     }
-     @Test
+
+    @Test
     void testEquals() {
         assertFalse(Ex1.equals("10b2", "10b3"));
         assertTrue(Ex1.equals("4095", "FFFbG"));
-        for (int i = 0; i < 17; i++) {
-            char s = Ex1.intToChar(i);
-            String a = "" + s;
-            if (Ex1.isNumber(a)) {
-                String sts = "0";
-                String sub = "0b" + s;
-            } else {
-                assertFalse(Ex1.isNumber(a));
-            }
-        }
+        assertTrue(Ex1.equals("101b2", "5bA"));
+        assertTrue(Ex1.equals("ABCbG", "2748bA"));
+        assertFalse(Ex1.equals("101b2", "6bA"));
+        assertFalse(Ex1.equals("100bA", "100bG"));
+        assertFalse(Ex1.equals("abc", "123bA"));
+        assertFalse(Ex1.equals("101b2", "xyz"));
+        assertFalse(Ex1.equals("", "123bA"));
+        assertFalse(Ex1.equals("101b2", ""));
+        assertTrue(Ex1.equals("00123bA", "123bA"));
+        assertTrue(Ex1.equals("000ABCbG", "2748bA"));
+        assertTrue(Ex1.equals("1b2", "1bG"));
+        assertFalse(Ex1.equals("10b2", "10b3"));
     }
 }
+

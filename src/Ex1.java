@@ -130,7 +130,7 @@ public class Ex1 {
 
             for (int i = 0; i < a.length(); i++) { // Check if the string consists only of digits
                 char c = a.charAt(i);
-                if (c < '0' || c > '9') {
+                if (c <= '0' || c >= '9') {
                     return false;  // Not a valid number if it contains non-digit characters
                 }
             }
