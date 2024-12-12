@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.stream.IntStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -153,10 +151,31 @@ public class Ex1Test {
     }
 
     @Test
-    void isNumber() {
-
+    void isNumber() { // This test is basically the same as the first one
+        String[] good = {"1", "0bG", "1b2", "01b2", "123bA", "FbG", "0",  "ABbG", "0bA"};
+        for (String s : good) {
+            boolean ok = Ex1.isNumber(s);
+            assertTrue(ok);
+        }
+        String[] not_good = {"b2", "2b2", " 1 2 b2", null, "1G3bG", " BbG", "0bbA", "abB", "!@b2", "A", "1bb2"};
+        for (String s : not_good) {
+            boolean not_ok = Ex1.isNumber(s);
+            assertFalse(not_ok);
+        }
     }
      @Test
     void testEquals() {
+        assertFalse(Ex1.equals("10b2", "10b3"));
+        assertTrue(Ex1.equals("4095", "FFFbG"));
+        for (int i = 0; i < 17; i++) {
+            char s = Ex1.intToChar(i);
+            String a = "" + s;
+            if (Ex1.isNumber(a)) {
+                String sts = "0";
+                String sub = "0b" + s;
+            } else {
+                assertFalse(Ex1.isNumber(a));
+            }
+        }
     }
 }
