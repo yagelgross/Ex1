@@ -28,7 +28,7 @@ public class Ex1 {
     }
 
     /**
-     *  This static function converts a given char to a specific specified value as an integer
+     *  This static function converts a given char to a specific specified value as an integer in decimal
      * @param c a given char
      * @return an integer containing the value of the char as an integer
      */
