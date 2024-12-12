@@ -171,6 +171,9 @@ public class Ex1 {
         if (num < 0 || base < 2 || base > 16) { // if the base value is false
             return "";
         }
+        if (base == 10) {
+            return String.valueOf(num);
+        }
         StringBuilder result = new StringBuilder(); // Recreate the original string, or make it from scratch
         int currentNum = num;
         if (currentNum==0){
@@ -180,7 +183,7 @@ public class Ex1 {
             int remainder = currentNum % base; // If the base is under 10
             if (remainder < 10) {
                 result.append((char) ('0' + remainder));
-            } else { // If the base is two digits as a decimal number
+            }  else { // If the base is two digits as a decimal number
 
                 result.append((char) ('A' + (remainder - 10))); // Convert to a char, and add to the string
 
