@@ -73,7 +73,7 @@ public class Ex1 {
             if (value == -1 || value >= base) {
                 return -1;
             }
-            result = result * base + value; // Execute the known formula for base conversion
+            result = result * base + value; // Execute the known formula for base conversion to "base"
         }
         return result;
     }
