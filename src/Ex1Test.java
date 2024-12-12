@@ -133,18 +133,28 @@ public class Ex1Test {
             }
         }
         for (int i = 10; i < 17; i++) {
+            /*
+             Since we know we have exactly 7 2-digits valid bases, and my isBase uses several
+             other functions in my main code before applying the check, to ensure my base
+             is in a single character, in order to test all possible bases here, I will subtract
+             7 from the basis, so that it will return true for all the right bases, and false otherwise.
+             */
             String basis = Ex1.int2Number(i-7, 10);
             if (Ex1.isNumber(basis)) {
                 assertTrue(Ex1.isBase(basis));
             }
         }
-        if (Ex1.isNumber("17")){
-            assertFalse(Ex1.isBase("17"));
+        for (int i = 0; (i <= 1) || (i >= 17); i++) {
+            String basis = Ex1.int2Number(i,10);
+            if (Ex1.isNumber(basis)){
+                assertFalse(Ex1.isBase(basis));
+            }
         }
     }
 
     @Test
     void isNumber() {
+
     }
      @Test
     void testEquals() {

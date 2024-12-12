@@ -174,9 +174,6 @@ public class Ex1 {
         if (num < 0 || base < 2 || base > 16) { // if the base value is false
             return "";
         }
-        if (base == 10) {
-            return String.valueOf(num);
-        }
         StringBuilder result = new StringBuilder(); // Recreate the original string, or make it from scratch
         int currentNum = num;
         if (currentNum==0){
